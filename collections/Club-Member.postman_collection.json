@@ -8,6 +8,34 @@
 	"item": [
 		{
 			"name": "Add an member to an club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains club with added member\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"members\");\r",
+							"    pm.expect(response.members).to.be.an(\"array\");\r",
+							"    pm.expect(response.members.length).to.be.greaterThan(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected club structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"name\");\r",
+							"    pm.expect(response).to.have.property(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -61,6 +89,32 @@
 		},
 		{
 			"name": "Add an invalid member to an club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains the correct error message\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.message).to.eql(\"The member with the given id was not found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected error structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"statusCode\");\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"    pm.expect(response.statusCode).to.eql(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -114,6 +168,46 @@
 		},
 		{
 			"name": "Get all members of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains a list of members\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.be.an(\"array\");\r",
+							"    pm.expect(response.length).to.be.greaterThan(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each member in the response contains expected properties\", function () {\r",
+							"    const members = pm.response.json();\r",
+							"    members.forEach(member => {\r",
+							"        pm.expect(member).to.have.property(\"id\");\r",
+							"        pm.expect(member).to.have.property(\"username\");\r",
+							"        pm.expect(member).to.have.property(\"email\");\r",
+							"        pm.expect(member).to.have.property(\"birthdate\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains valid club member data\", function () {\r",
+							"    const members = pm.response.json();\r",
+							"    members.forEach(member => {\r",
+							"        pm.expect(member.id).to.be.a('string');\r",
+							"        pm.expect(member.username).to.be.a('string');\r",
+							"        pm.expect(member.email).to.be.a('string');\r",
+							"        pm.expect(new Date(member.birthdate)).to.be.a('date');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -167,6 +261,36 @@
 		},
 		{
 			"name": "Get an member of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains the expected member\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"username\");\r",
+							"    pm.expect(response).to.have.property(\"email\");\r",
+							"    pm.expect(response).to.have.property(\"birthdate\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Member data has the correct types\", function () {\r",
+							"    const member = pm.response.json();\r",
+							"    pm.expect(member.id).to.be.a('string');\r",
+							"    pm.expect(member.username).to.be.a('string');\r",
+							"    pm.expect(member.email).to.be.a('string');\r",
+							"    pm.expect(new Date(member.birthdate)).to.be.a('date');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -220,6 +344,33 @@
 		},
 		{
 			"name": "Get an invalid member of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains the correct error message\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"    pm.expect(response.message).to.eql(\"The member with the given id was not found in the club\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected error structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"statusCode\");\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"    pm.expect(response.statusCode).to.eql(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -273,6 +424,35 @@
 		},
 		{
 			"name": "Update members of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains updated members list\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"members\");\r",
+							"    pm.expect(response.members).to.be.an(\"array\");\r",
+							"    pm.expect(response.members.length).to.be.greaterThan(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected club structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"id\");\r",
+							"    pm.expect(response).to.have.property(\"name\");\r",
+							"    pm.expect(response).to.have.property(\"description\");\r",
+							"    pm.expect(response).to.have.property(\"foundationDate\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -342,6 +522,32 @@
 		},
 		{
 			"name": "Update invalid members of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"    pm.expect(response.message).to.include(\"One of the members was not found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected error structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"statusCode\");\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -411,6 +617,20 @@
 		},
 		{
 			"name": "Delete an member of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -457,6 +677,32 @@
 		},
 		{
 			"name": "Delete an invalid member of a club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"    pm.expect(response.message).to.include(\"The member with the given id was not found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected error structure\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"statusCode\");\r",
+							"    pm.expect(response).to.have.property(\"message\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],

@@ -10,22 +10,25 @@ export class ClubMemberController {
   constructor(private readonly clubMemberService: ClubMemberService) {}
 
   @Post(':clubId/members/:memberId')
-  @HttpCode(200)
+  @HttpCode(201)
   async addMemberToClub(@Param('clubId') clubId: string, @Param('memberId') memberId: string) {
     return await this.clubMemberService.addMemberToClub(clubId, memberId);
   }
 
   @Get(':clubId/members')
+  @HttpCode(200)
   async findMembersFromClub(@Param('clubId') clubId: string): Promise<MemberEntity[]> {
     return await this.clubMemberService.findMembersFromClub(clubId);
   }
 
   @Get(':clubId/members/:memberId')
+  @HttpCode(200)
   async findMemberFromClub(@Param('clubId') clubId: string, @Param('memberId') memberId: string): Promise<MemberEntity> {
     return await this.clubMemberService.findMemberFromClub(clubId, memberId);
   }
 
   @Put(':clubId/members')
+  @HttpCode(200)
   async updateMembersFromClub(@Param('clubId') clubId: string, @Body() members: MemberEntity[]): Promise<ClubEntity> {
     return await this.clubMemberService.updateMembersFromClub(clubId, members);
   }
