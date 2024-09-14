@@ -2,7 +2,7 @@ import { Controller, Param, Body, Post, Get, Put, Delete, HttpCode, UseIntercept
 import { ClubMemberService } from './club-member.service';
 import { MemberEntity } from '../member/member.entity';
 import { ClubEntity } from '../club/club.entity';
-import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors.interceptor';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 
 @Controller('clubs')
 @UseInterceptors(BusinessErrorsInterceptor)

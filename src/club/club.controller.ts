@@ -3,7 +3,7 @@ import { ClubService } from './club.service';
 import { ClubDto } from './club.dto';
 import { ClubEntity } from './club.entity';
 import { plainToInstance } from 'class-transformer';
-import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors.interceptor';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 
 @Controller('clubs')
 @UseInterceptors(BusinessErrorsInterceptor)

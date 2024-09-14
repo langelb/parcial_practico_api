@@ -3,7 +3,7 @@ import { MemberService } from './member.service';
 import { MemberDto } from './member.dto';
 import { MemberEntity } from './member.entity';
 import { plainToInstance } from 'class-transformer';
-import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors.interceptor';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 
 @Controller('members')
 @UseInterceptors(BusinessErrorsInterceptor)
