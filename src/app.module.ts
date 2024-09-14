@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { MemberModule } from './member/member.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClubModule } from './club/club.module';
-import { MemberClubModule } from './member-club/member-club.module';
+import { ClubMemberModule } from './club-member/club-member.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { MemberClubModule } from './member-club/member-club.module';
     }),
     MemberModule,
     ClubModule,
-    MemberClubModule,
+    ClubMemberModule,
   ],
   controllers: [AppController],
   providers: [AppService],
