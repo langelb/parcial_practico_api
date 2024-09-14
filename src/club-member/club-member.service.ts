@@ -14,8 +14,7 @@ export class ClubMemberService {
     @InjectRepository(MemberEntity)
     private readonly memberRepository: Repository<MemberEntity>,
   ) {}
-
-  // Agregar un miembro a un club
+  
   async addMemberToClub(clubId: string, memberId: string): Promise<ClubEntity> {
     const member = await this.memberRepository.findOne({ where: { id: memberId } });
     if (!member) {
@@ -30,8 +29,7 @@ export class ClubMemberService {
     club.members.push(member);
     return this.clubRepository.save(club);
   }
-
-  // Obtener todos los miembros de un club
+  
   async findMembersFromClub(clubId: string): Promise<MemberEntity[]> {
     const club = await this.clubRepository.findOne({ where: { id: clubId }, relations: ['members'] });
     if (!club) {
@@ -40,8 +38,7 @@ export class ClubMemberService {
 
     return club.members;
   }
-
-  // Obtener un miembro específico de un club
+  
   async findMemberFromClub(clubId: string, memberId: string): Promise<MemberEntity> {
     const club = await this.clubRepository.findOne({ where: { id: clubId }, relations: ['members'] });
     if (!club) {
@@ -55,8 +52,7 @@ export class ClubMemberService {
 
     return member;
   }
-
-  // Actualizar la lista de miembros de un club
+  
   async updateMembersFromClub(clubId: string, members: MemberEntity[]): Promise<ClubEntity> {
     const club = await this.clubRepository.findOne({ where: { id: clubId }, relations: ['members'] });
     if (!club) {
@@ -75,8 +71,7 @@ export class ClubMemberService {
     club.members = validMembers;
     return this.clubRepository.save(club);
   }
-
-  // Eliminar un miembro de un club
+  
   async deleteMemberFromClub(clubId: string, memberId: string): Promise<void> {
     const club = await this.clubRepository.findOne({ where: { id: clubId }, relations: ['members'] });
     if (!club) {
@@ -88,7 +83,7 @@ export class ClubMemberService {
       throw new BusinessLogicException('The member with the given id was not found in the club', BusinessError.NOT_FOUND);
     }
 
-    club.members.splice(memberIndex, 1); // Elimina al miembro del array
+    club.members.splice(memberIndex, 1); 
     await this.clubRepository.save(club);
   }
 }

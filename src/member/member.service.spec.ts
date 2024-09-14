@@ -64,7 +64,7 @@ describe('MemberService', () => {
     const newMemberDto = {
       username: faker.internet.userName(),
       email: faker.internet.email(),
-      birthdate: faker.date.past().toISOString().split('T')[0],  // Convertimos a string
+      birthdate: faker.date.past().toISOString().split('T')[0],
     };
 
     const result = await service.create(newMemberDto);

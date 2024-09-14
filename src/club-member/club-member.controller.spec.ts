@@ -72,7 +72,7 @@ describe('ClubMemberController', () => {
       relations: ['members'],
     });
 
-    expect(updatedClub.members.length).toBe(4); // Debe haber 4 miembros ahora
+    expect(updatedClub.members.length).toBe(4); 
     expect(updatedClub.members.find((m) => m.id === newMember.id)).toBeDefined();
   });
 
@@ -102,7 +102,7 @@ describe('ClubMemberController', () => {
     });
 
     const updatedClub = await controller.updateMembersFromClub(club.id, [newMember]);
-    expect(updatedClub.members.length).toBe(1); // Solo debería haber un miembro ahora
+    expect(updatedClub.members.length).toBe(1); 
     expect(updatedClub.members[0].id).toBe(newMember.id);
   });
 
@@ -116,7 +116,7 @@ describe('ClubMemberController', () => {
       relations: ['members'],
     });
 
-    expect(updatedClub.members.length).toBe(2); // Debe haber 2 miembros después de eliminar 1
+    expect(updatedClub.members.length).toBe(2); 
     expect(updatedClub.members.find((m) => m.id === member.id)).toBeUndefined();
   });
 });

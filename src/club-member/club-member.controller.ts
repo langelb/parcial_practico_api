@@ -33,7 +33,6 @@ export class ClubMemberController {
     return await this.clubMemberService.updateMembersFromClub(clubId, members);
   }
 
-  // Eliminar un miembro de un club
   @Delete(':clubId/members/:memberId')
   @HttpCode(204)
   async deleteMemberFromClub(@Param('clubId') clubId: string, @Param('memberId') memberId: string) {
