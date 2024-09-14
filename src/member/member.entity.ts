@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Club } from '../club/club.entity';
+import { ClubEntity } from '../club/club.entity';
 
 @Entity()
-export class Member {
+export class MemberEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -15,7 +15,7 @@ export class Member {
   @Column()
   birthdate: Date;
 
-  @ManyToMany(() => Club, (club) => club.members)
+  @ManyToMany(() => ClubEntity, (club) => club.members)
   @JoinTable()
-  clubs: Club[];
+  clubs: ClubEntity[];
 }

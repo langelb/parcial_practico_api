@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { Member } from '../member/member.entity';
+import { MemberEntity } from '../member/member.entity';
 
 @Entity()
-export class Club {
+export class ClubEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,6 +18,6 @@ export class Club {
   @Column({ length: 100 })
   description: string;
 
-  @ManyToMany(() => Member, (member) => member.clubs)
-  members: Member[];
+  @ManyToMany(() => MemberEntity, (member) => member.clubs)
+  members: MemberEntity[];
 }
